@@ -58,46 +58,53 @@ function SelectArea() {
 	};
 
 	return (
-		<div
-			className="select-area"
-			onMouseDown={handleMouseDown}
-			onMouseUp={handleMouseUp}
-			onMouseMove={handleMouseMove}
-		>
-			{isMouseDown && (
-				<div
-					className="selected-area"
-					style={{
-						top: selectedAreaTop || 0,
-						left: selectedAreaLeft || 0,
-						width: selectedAreaWidth || 0,
-						height: selectedAreaHeight || 0,
-						borderWidth:
-							(selectedAreaWidth ?? 0) && (selectedAreaWidth ?? 0) > 1 ? 1 : 0,
-						backgroundColor:
-							(selectedAreaWidth ?? 0) <= 1 || (selectedAreaHeight ?? 0) <= 1
-								? '#f0ca00'
-								: 'rgba(255, 240, 153, 0.125)',
-					}}
-				/>
-			)}
-
-			<div className="details">
-				<p>
-					X: {formatNumberWithCommas(mouseCoordinatesX ?? 0)} Y:{' '}
-					{formatNumberWithCommas(mouseCoordinatesY ?? 0)}
-				</p>
-				{isMouseDown && (
-					<>
-						<p>
-							W: {formatNumberWithCommas(selectedAreaWidth ?? 0)} H:{' '}
-							{formatNumberWithCommas(selectedAreaHeight ?? 0)} Area:{' '}
-							{formatNumberWithCommas(SELECETED_AREA_WIDTH)} px
-						</p>
-					</>
-				)}
+		<>
+			<div className="heading">
+				<h1>Viewport Select</h1>
+				<p>Select an area of the viewport to view it's pixel dimensions.</p>
 			</div>
-		</div>
+
+			<div
+				className="select-area"
+				onMouseDown={handleMouseDown}
+				onMouseUp={handleMouseUp}
+				onMouseMove={handleMouseMove}
+			>
+				{isMouseDown && (
+					<div
+						className="selected-area"
+						style={{
+							top: selectedAreaTop || 0,
+							left: selectedAreaLeft || 0,
+							width: selectedAreaWidth || 0,
+							height: selectedAreaHeight || 0,
+							borderWidth:
+								(selectedAreaWidth ?? 0) && (selectedAreaWidth ?? 0) > 1 ? 1 : 0,
+							backgroundColor:
+								(selectedAreaWidth ?? 0) <= 1 || (selectedAreaHeight ?? 0) <= 1
+									? '#f0ca00'
+									: 'rgba(255, 240, 153, 0.125)',
+						}}
+					/>
+				)}
+
+				<div className="details">
+					<p>
+						X: {formatNumberWithCommas(mouseCoordinatesX ?? 0)} Y:{' '}
+						{formatNumberWithCommas(mouseCoordinatesY ?? 0)}
+					</p>
+					{isMouseDown && (
+						<>
+							<p>
+								<span>W: {formatNumberWithCommas(selectedAreaWidth ?? 0)}</span>{' '}
+								<span>H: {formatNumberWithCommas(selectedAreaHeight ?? 0)}</span>{' '}
+								<span>Area: {formatNumberWithCommas(SELECETED_AREA_WIDTH)} px</span>
+							</p>
+						</>
+					)}
+				</div>
+			</div>
+		</>
 	);
 }
 
