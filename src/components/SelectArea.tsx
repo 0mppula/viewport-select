@@ -11,6 +11,9 @@ function SelectArea() {
 	const [selectedAreaStartX, setSelectedAreaStartX] = useState<number | null>(null);
 	const [selectedAreaStartY, setSelectedAreaStartY] = useState<number | null>(null);
 
+	const [mouseCoordinatesX, setMouseCoordinatesX] = useState<number | null>(null);
+	const [mouseCoordinatesY, setMouseCoordinatesY] = useState<number | null>(null);
+
 	const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
 		setIsMouseDown(true);
 
@@ -34,15 +37,24 @@ function SelectArea() {
 	};
 
 	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!isMouseDown) return;
-
 		const relativeTop = e.clientY - e.currentTarget.offsetTop;
 		const relativeLeft = e.clientX - e.currentTarget.offsetLeft;
+
+		setMouseCoordinatesX(relativeTop);
+		setMouseCoordinatesY(relativeLeft);
+
+		if (!isMouseDown) return;
 
 		setSelectedAreaTop(Math.min(selectedAreaStartY!, relativeTop));
 		setSelectedAreaLeft(Math.min(selectedAreaStartX!, relativeLeft));
 		setSelectedAreaHeight(Math.abs(relativeTop - selectedAreaStartY!));
 		setSelectedAreaWidth(Math.abs(relativeLeft - selectedAreaStartX!));
+	};
+
+	const SELECETED_AREA_WIDTH = (selectedAreaHeight ?? 0) * (selectedAreaWidth ?? 0);
+
+	const formatNumberWithCommas = (x: number) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	};
 
 	return (
@@ -61,14 +73,30 @@ function SelectArea() {
 						width: selectedAreaWidth || 0,
 						height: selectedAreaHeight || 0,
 						borderWidth:
-							+(selectedAreaWidth ?? 0) && +(selectedAreaWidth ?? 0) > 1 ? 1 : 0,
+							(selectedAreaWidth ?? 0) && (selectedAreaWidth ?? 0) > 1 ? 1 : 0,
 						backgroundColor:
-							+(selectedAreaWidth ?? 0) <= 1 || +(selectedAreaHeight ?? 0) <= 1
+							(selectedAreaWidth ?? 0) <= 1 || (selectedAreaHeight ?? 0) <= 1
 								? '#f0ca00'
-								: 'transparent',
+								: 'rgba(255, 240, 153, 0.125)',
 					}}
 				/>
 			)}
+
+			<div className="details">
+				<p>
+					X: {formatNumberWithCommas(mouseCoordinatesX ?? 0)} Y:{' '}
+					{formatNumberWithCommas(mouseCoordinatesY ?? 0)}
+				</p>
+				{isMouseDown && (
+					<>
+						<p>
+							W: {formatNumberWithCommas(selectedAreaWidth ?? 0)} H:{' '}
+							{formatNumberWithCommas(selectedAreaHeight ?? 0)} Area:{' '}
+							{formatNumberWithCommas(SELECETED_AREA_WIDTH)} px
+						</p>
+					</>
+				)}
+			</div>
 		</div>
 	);
 }

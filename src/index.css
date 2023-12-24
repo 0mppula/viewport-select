@@ -17,7 +17,7 @@
 body {
 	background-color: var(--dark);
 	color: var(--light);
-	padding: 1rem;
+	padding: 1rem 2rem;
 }
 
 .wrapper {
@@ -40,4 +40,13 @@ body {
 .selected-area {
 	position: absolute;
 	border: solid 1px var(--primary);
+	background-color: var(--light);
+}
+
+.select-area p {
+	user-select: none;
+}
+
+.details {
+	padding: 0.5rem;
 }
