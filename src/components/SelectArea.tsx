@@ -93,15 +93,12 @@ function SelectArea() {
 						X: {formatNumberWithCommas(mouseCoordinatesX ?? 0)} Y:{' '}
 						{formatNumberWithCommas(mouseCoordinatesY ?? 0)}
 					</p>
-					{isMouseDown && (
-						<>
-							<p>
-								<span>W: {formatNumberWithCommas(selectedAreaWidth ?? 0)}</span>{' '}
-								<span>H: {formatNumberWithCommas(selectedAreaHeight ?? 0)}</span>{' '}
-								<span>Area: {formatNumberWithCommas(SELECETED_AREA_WIDTH)} px</span>
-							</p>
-						</>
-					)}
+
+					<p>
+						<span>W: {formatNumberWithCommas(selectedAreaWidth ?? 0)}</span>{' '}
+						<span>H: {formatNumberWithCommas(selectedAreaHeight ?? 0)}</span>{' '}
+						<span>Area: {formatNumberWithCommas(SELECETED_AREA_WIDTH)}</span>
+					</p>
 				</div>
 			</div>
 		</>
