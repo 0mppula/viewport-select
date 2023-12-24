@@ -1,7 +1,10 @@
+import SelectArea from './components/SelectArea';
+
 function App() {
 	return (
-		<div>
-			<h1>Hello World!</h1>
+		<div className="wrapper">
+			<h1>Viewport Select</h1>
+			<SelectArea />
 		</div>
 	);
 }
